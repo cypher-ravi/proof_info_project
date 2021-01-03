@@ -1,0 +1,14 @@
+<html>
+<head>
+<title>
+    list of categories
+</title>
+</head>
+<body>
+    {% for category in all_categories %}
+    <li>
+    {{ category.name }}
+    </li>
+    {% endfor %}
+</body>
+</html>
