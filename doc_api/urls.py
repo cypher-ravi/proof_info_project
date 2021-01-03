@@ -9,4 +9,6 @@ urlpatterns = [
     path('list_of_proof/<str:state>',ListOfProofsView.as_view()),
     path('process_of_proof/<str:pk>',ProofDetailAPIView.as_view()),
     path('feedback/',FeedbackAPIView.as_view()),
+
+    path('search_proof/',ProofSearchAPIView.as_view()),
 ]

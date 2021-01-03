@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.response import Response 
 from rest_framework import status
 from rest_framework import generics
+from rest_framework import filters
 
 from .models import *
 from .serializers import *
@@ -37,7 +38,7 @@ class ProofDetailAPIView(generics.RetrieveAPIView):
         process_of_proof = ProcessForDoc.objects.get(proof = proof[0])
         steps = StepOfProcess.objects.filter(process=process_of_proof)
         serialize_steps = StepSerialzier(steps,many=True)
-        
+
         doc_required = DocumentRequiredForProof.objects.filter(proof=proof[0])
         serialize_docs = DocumentRequiredSerialzier(doc_required,many=True)
 
@@ -50,3 +51,10 @@ class ProofDetailAPIView(generics.RetrieveAPIView):
 class FeedbackAPIView(generics.CreateAPIView):
     queryset = Feedback.objects.all()
     serializer_class = FeedbackSerializer
+
+
+class ProofSearchAPIView(generics.ListAPIView):
+    queryset = Proof.objects.all()
+    serializer_class = ProofSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name', 'description']
